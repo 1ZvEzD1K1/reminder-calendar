@@ -1,10 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import { privateRoutes, publicRoutes, RouteNames } from "../routs/routs";
 
-const CalendarRouter = () => {
-  const auth = true;
-  return auth  ? (
+const CalendarRouter: FC = () => {
+  const {isAuth} = useTypedSelector(state=>state.authReduser)
+  return isAuth  ? (
     <Switch>
       {privateRoutes.map((route) => {
         return (
