@@ -1,12 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC } from "react";
+import { Layout, Row } from "antd";
+import RegistrationForm from "../components/RegistrationForm";
 
 const Registration: FC = () => {
-    return (
-        <div>
-            REGISTRATION
-        </div>
-    )
-}
+  return (
+    <Layout>
+      <Row justify="center" align="middle" className="h100">
+        <RegistrationForm/>
+      </Row>
+    </Layout>
+  );
+};
 
-export default Registration
- 
+export default Registration;

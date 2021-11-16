@@ -1,4 +1,4 @@
-import { Layout, Menu, Row } from "antd";
+import { Layout, Menu } from "antd";
 import React, { FC } from "react";
 import { useHistory } from "react-router-dom";
 import { useTypedSelector } from "../hooks/useTypedSelector";
@@ -7,10 +7,9 @@ import { RouteNames } from "../routs/routs";
 const Navbar: FC = () => {
   const history = useHistory();
 
-  const {isAuth} = useTypedSelector(state=>state.authReduser)
+  const { isAuth } = useTypedSelector((state) => state.authReduser);
   return (
     <Layout.Header>
-      <Row justify="end">
         {isAuth ? (
           <>
             <div
@@ -27,13 +26,14 @@ const Navbar: FC = () => {
             </Menu>
           </>
         ) : (
-          <Menu theme="dark" mode="horizontal" selectable={false}>
-            <Menu.Item onClick={() => history.push(RouteNames.LOGIN)} key={1}>
-              Login
-            </Menu.Item>
-          </Menu>
+          <>
+            <Menu theme="dark" mode="horizontal" selectable={false}>
+              <Menu.Item onClick={() => history.push(RouteNames.LOGIN)} key={1}>
+                Login
+              </Menu.Item>
+            </Menu>
+          </>
         )}
-      </Row>
     </Layout.Header>
   );
 };
