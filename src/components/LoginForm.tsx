@@ -7,13 +7,13 @@ const LoginForm: FC = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <Form>
+    <Form onFinish={() => console.log("submit")}>
       <Form.Item
         name="Email"
         label="Email"
         rules={[{ type: "email" }, { required: true }]}
       >
-        <Input value={email} onChange={(e)=>setEmail(e.target.value)} />
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
       </Form.Item>
       <Form.Item
         label="Password"
@@ -26,10 +26,13 @@ const LoginForm: FC = () => {
           },
         ]}
       >
-        <Input.Password value={password} onChange={(e)=>setPassword(e.target.value)} />
+        <Input.Password
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" onClick={()=>console.log(email, password)}>
+        <Button type="primary" htmlType="submit">
           Login
         </Button>
         <Link to="/registration"> Or register now!</Link>

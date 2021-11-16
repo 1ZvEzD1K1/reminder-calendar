@@ -6,7 +6,7 @@ const RegistrationForm: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <Form>
+    <Form onFinish={() => console.log("submit")}>
       <Form.Item
         name="nickname"
         label="Nickname"
@@ -19,7 +19,7 @@ const RegistrationForm: FC = () => {
           },
         ]}
       >
-        <Input value={nickname} onChange={(e)=>setNickname(e.target.value)}/>
+        <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
       </Form.Item>
       <Form.Item
         name="email"
@@ -35,7 +35,7 @@ const RegistrationForm: FC = () => {
           },
         ]}
       >
-        <Input value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
       </Form.Item>
       <Form.Item
         name="password"
@@ -52,7 +52,10 @@ const RegistrationForm: FC = () => {
         ]}
         hasFeedback
       >
-        <Input.Password value={password} onChange={(e)=>setPassword(e.target.value)} />
+        <Input.Password
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </Form.Item>
       <Form.Item
         name="comfirm"
@@ -64,10 +67,12 @@ const RegistrationForm: FC = () => {
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
+              if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              return Promise.reject(
+                new Error("The two passwords that you entered do not match!")
+              );
             },
           }),
         ]}
@@ -76,7 +81,7 @@ const RegistrationForm: FC = () => {
         <Input.Password />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" onClick={()=>console.log(email, nickname, password)}>
+        <Button type="primary" htmlType="submit">
           Register
         </Button>
       </Form.Item>

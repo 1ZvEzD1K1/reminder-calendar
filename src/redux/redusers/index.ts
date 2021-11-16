@@ -1,5 +1,7 @@
-import authReduser from "./auth/auth";
+import authReducer from "./auth/auth";
+import registrationReducer from "./registration/registration";
 
 export default {
-    authReduser
+    authReducer,
+    registrationReducer
 }
