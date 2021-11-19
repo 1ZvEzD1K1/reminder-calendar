@@ -4,6 +4,12 @@ export type RegistrationState = {
   error: any;
 };
 
+export type User ={
+  nickname: string;
+  email: string;
+  password: string;
+}
+
 export enum RegistrationActionEnum {
   REGISTRATION_LOADING = "REGISTRATION_LOADING",
   SEND_DATA_SUCCESS = "SEND_DATA_SUCCESS",

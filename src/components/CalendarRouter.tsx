@@ -4,7 +4,7 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import { privateRoutes, publicRoutes, RouteNames } from "../routs/routs";
 
 const CalendarRouter: FC = () => {
-  const {isAuth} = useTypedSelector(state=>state.authReduser)
+  const {isAuth} = useTypedSelector(state=>state.authReducer)
   return isAuth  ? (
     <Switch>
       {privateRoutes.map((route) => {

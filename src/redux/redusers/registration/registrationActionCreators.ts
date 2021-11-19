@@ -5,6 +5,7 @@ import {
   RegistrationLoadingAction,
   SendDataErrorAction,
   SendDataSuccessAction,
+  User,
 } from "./typesRegistration";
 
 export const RegistrationActionCreators = {
@@ -23,17 +24,21 @@ export const RegistrationActionCreators = {
   request:
     (nickname: string, email: string, password: string) =>
     async (dispatch: AppDispatch) => {
-        try {
-            dispatch(RegistrationActionCreators.regLoading(true))
-            const req: AxiosResponse = await axios.post("backend-huinia.com", {
-                nickname,
-                email,
-                password
-            })
-            dispatch(RegistrationActionCreators.sendData(req.status))
-            dispatch(RegistrationActionCreators.regLoading(false))
-        } catch (error) {
-            dispatch(RegistrationActionCreators.regError(error))
-        }
+      try {
+        dispatch(RegistrationActionCreators.regLoading(true));
+        const user: User = {
+          nickname,
+          email,
+          password,
+        };
+        const req: AxiosResponse = await axios.post(
+          "backend-huinia.com/auth/sign-up",
+          user
+        );
+        dispatch(RegistrationActionCreators.sendData(req.status));
+        dispatch(RegistrationActionCreators.regLoading(false));
+      } catch (error) {
+        dispatch(RegistrationActionCreators.regError(error));
+      }
     },
 };

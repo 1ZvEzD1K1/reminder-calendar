@@ -7,7 +7,7 @@ import { RouteNames } from "../routs/routs";
 const Navbar: FC = () => {
   const history = useHistory();
 
-  const { isAuth } = useTypedSelector((state) => state.authReduser);
+  const { isAuth } = useTypedSelector((state) => state.authReducer);
   return (
     <Layout.Header>
         {isAuth ? (

@@ -1,13 +1,22 @@
 import React, { FC, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import { Link } from "react-router-dom";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { AuthActionCreators } from "../redux/redusers/auth/authActionCreators";
 
 const LoginForm: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { isLoading } = useTypedSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
+
+  const submitAuth = () => {
+    dispatch(AuthActionCreators.request(email, password));
+  };
 
   return (
-    <Form onFinish={() => console.log("submit")}>
+    <Form onFinish={submitAuth}>
       <Form.Item
         name="Email"
         label="Email"
@@ -35,6 +44,7 @@ const LoginForm: FC = () => {
         <Button type="primary" htmlType="submit">
           Login
         </Button>
+        {isLoading && <Spin style={{padding: "5px"}}/>}
         <Link to="/registration"> Or register now!</Link>
       </Form.Item>
     </Form>

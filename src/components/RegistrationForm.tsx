@@ -1,12 +1,22 @@
 import React, { FC, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
+import { RegistrationActionCreators } from "../redux/redusers/registration/registrationActionCreators";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const RegistrationForm: FC = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { isLoading } = useTypedSelector((state) => state.registrationReducer);
+  const dispatch = useDispatch();
+
+  const submitRegistration = () => {
+    dispatch(RegistrationActionCreators.request(nickname, email, password));
+  };
+
   return (
-    <Form onFinish={() => console.log("submit")}>
+    <Form onFinish={submitRegistration}>
       <Form.Item
         name="nickname"
         label="Nickname"
@@ -84,6 +94,7 @@ const RegistrationForm: FC = () => {
         <Button type="primary" htmlType="submit">
           Register
         </Button>
+        {isLoading && <Spin style={{padding: "5px"}} />}
       </Form.Item>
     </Form>
   );
