@@ -12,17 +12,18 @@ const Navbar: FC = () => {
     <Layout.Header>
         {isAuth ? (
           <>
-            <div
+            <Menu theme="dark" mode="horizontal" selectable={false}>
+              <Menu.Item onClick={() => console.log("exit")} key="1">
+                Exit
+              </Menu.Item>
+
+              <div
               style={{
                 color: "white",
               }}
             >
               your name
             </div>
-            <Menu theme="dark" mode="horizontal" selectable={false}>
-              <Menu.Item onClick={() => console.log("exit")} key="1">
-                Exit
-              </Menu.Item>
             </Menu>
           </>
         ) : (

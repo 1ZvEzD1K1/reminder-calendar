@@ -1,11 +1,13 @@
-import React, { FC } from 'react'
+import { Layout } from "antd";
+import React, { FC } from "react";
+import CalendarComponent from "../components/CalendarComponent";
 
 const Calendar: FC = () => {
-    return (
-        <div>
-            EVENT
-        </div>
-    )
-}
+  return (
+    <Layout>
+      <CalendarComponent />
+    </Layout>
+  );
+};
 
-export default Calendar
+export default Calendar;
