@@ -49,6 +49,9 @@ export const AuthActionCreators = {
             Authorization: `Bearer ${res.data}`,
           },
         });
+        if (me.status === 200) {
+          dispatch(AuthActionCreators.setAuth(true))
+        }
         dispatch(AuthActionCreators.getUser(me.data))
         dispatch(AuthActionCreators.authLoading(false));
       } catch (error) {

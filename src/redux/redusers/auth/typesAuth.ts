@@ -2,7 +2,7 @@ export type AuthState = {
   isAuth: boolean;
   isLoading: boolean;
   user: object;
-  token: string;
+  token: string | null;
   error: string;
 };
 
