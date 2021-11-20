@@ -3,6 +3,7 @@ import { AuthAction, AuthActionEnum, AuthState } from "./typesAuth";
 const initialState: AuthState = {
   isAuth: false,
   isLoading: false,
+  user: {},
   token: "",
   error: "",
 };
@@ -20,6 +21,8 @@ export default function authReducer(
       return { ...state, token: action.payload };
     case AuthActionEnum.AUTH_DATA_ERROR:
       return { ...state, error: action.payload };
+      case AuthActionEnum.GET_USER:
+        return {...state, user: action.payload}
     default:
       return state;
   }

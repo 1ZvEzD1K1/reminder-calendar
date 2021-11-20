@@ -6,7 +6,9 @@ import {
   SendAuthDataSuccessAction,
   SetAuthAction,
   SetAuthLoadingAction,
+  GetUserAction,
   User,
+  UserObject,
 } from "./typesAuth";
 
 //redux persist
@@ -28,6 +30,10 @@ export const AuthActionCreators = {
     type: AuthActionEnum.SET_AUTH,
     payload,
   }),
+  getUser: (payload: UserObject): GetUserAction => ({
+    type: AuthActionEnum.GET_USER,
+    payload,
+  }),
   request:
     (email: string, password: string) => async (dispatch: AppDispatch) => {
       try {
@@ -38,6 +44,12 @@ export const AuthActionCreators = {
         };
         const res: AxiosResponse = await axios.post("gde.silka.com", user);
         dispatch(AuthActionCreators.sendData(res.data));
+        const me: AxiosResponse = await axios.get("day.mne.usera.padla.cum", {
+          headers: {
+            Authorization: `Bearer ${res.data}`,
+          },
+        });
+        dispatch(AuthActionCreators.getUser(me.data))
         dispatch(AuthActionCreators.authLoading(false));
       } catch (error) {
         dispatch(AuthActionCreators.authError(error));

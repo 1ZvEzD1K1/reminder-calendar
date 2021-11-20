@@ -1,8 +1,15 @@
 export type AuthState = {
   isAuth: boolean;
   isLoading: boolean;
+  user: object;
   token: string;
   error: string;
+};
+
+export type UserObject = {
+  username: string;
+  email: string;
+  is_active: boolean;
 };
 
 export type User = {
@@ -15,6 +22,7 @@ export enum AuthActionEnum {
   AUTH_LOADING = "AUTH_LOADING",
   AUTH_DATA_SUCCESS = "AUTH_DATA_SUCCESS",
   AUTH_DATA_ERROR = "AUTH_DATA_ERROR",
+  GET_USER = "GET_USER",
 }
 
 export interface SetAuthAction {
@@ -37,8 +45,14 @@ export interface SendAuthDataErrorAction {
   payload: string;
 }
 
+export interface GetUserAction {
+  type: AuthActionEnum.GET_USER;
+  payload: object;
+}
+
 export type AuthAction =
   | SetAuthAction
   | SetAuthLoadingAction
   | SendAuthDataSuccessAction
-  | SendAuthDataErrorAction;
+  | SendAuthDataErrorAction
+  | GetUserAction;
