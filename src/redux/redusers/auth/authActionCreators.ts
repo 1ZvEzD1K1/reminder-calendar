@@ -35,18 +35,19 @@ export const AuthActionCreators = {
     payload,
   }),
   request:
-    (email: string, password: string) => async (dispatch: AppDispatch) => {
+    (username: string, password: string) => async (dispatch: AppDispatch) => {
       try {
         dispatch(AuthActionCreators.authLoading(true));
         const user: User = {
-          email,
+          username,
           password,
         };
-        const res: AxiosResponse = await axios.post("gde.silka.com", user);
+        
+        const res: AxiosResponse = await axios.post("http://26.193.135.145:8000/auth/sign-in", user);
         dispatch(AuthActionCreators.sendData(res.data));
-        const me: AxiosResponse = await axios.get("day.mne.usera.padla.cum", {
+        const me: AxiosResponse = await axios.get("http://26.193.135.145:8000/api/me", {
           headers: {
-            Authorization: `Bearer ${res.data}`,
+            Authorization: `Bearer ${res.data.access_token}`,
           },
         });
         if (me.status === 200) {

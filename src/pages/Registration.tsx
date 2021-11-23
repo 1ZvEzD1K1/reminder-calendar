@@ -3,6 +3,7 @@ import { Alert, Card, Layout, Row } from "antd";
 import RegistrationForm from "../components/RegistrationForm";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useHistory } from "react-router";
+import { RegistrationActionCreators } from "../redux/redusers/registration/registrationActionCreators";
 
 const Registration: FC = () => {
   const { status } = useTypedSelector((state) => state.registrationReducer);
@@ -19,6 +20,7 @@ const Registration: FC = () => {
   } else {
     setTimeout(() => {
       history.push("/login");
+      RegistrationActionCreators.sendData(null)
     }, 4000);
     return (
       <Layout>

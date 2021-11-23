@@ -9,7 +9,7 @@ import {
 } from "./typesRegistration";
 
 export const RegistrationActionCreators = {
-  sendData: (payload: number): SendDataSuccessAction => ({
+  sendData: (payload: number | null): SendDataSuccessAction => ({
     type: RegistrationActionEnum.SEND_DATA_SUCCESS,
     payload,
   }),
@@ -22,17 +22,17 @@ export const RegistrationActionCreators = {
     payload,
   }),
   request:
-    (nickname: string, email: string, password: string) =>
+    (username: string, email: string, password: string) =>
     async (dispatch: AppDispatch) => {
       try {
         dispatch(RegistrationActionCreators.regLoading(true));
         const user: User = {
-          nickname,
+          username,
           email,
           password,
         };
         const req: AxiosResponse = await axios.post(
-          "backend-huinia.com/auth/sign-up",
+          "http://26.193.135.145:8000/auth/sign-up",
           user
         );
         dispatch(RegistrationActionCreators.sendData(req.status));

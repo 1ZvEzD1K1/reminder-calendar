@@ -7,7 +7,7 @@ import { RouteNames } from "../routs/routs";
 const Navbar: FC = () => {
   const history = useHistory();
 
-  const { isAuth } = useTypedSelector((state) => state.authReducer);
+  const { isAuth, user } = useTypedSelector((state) => state.authReducer);
   return (
     <Layout.Header>
         {isAuth ? (
@@ -22,7 +22,7 @@ const Navbar: FC = () => {
                 color: "white",
               }}
             >
-              your name
+              {user.username}
             </div>
             </Menu>
           </>

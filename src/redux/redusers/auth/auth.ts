@@ -1,9 +1,15 @@
-import { AuthAction, AuthActionEnum, AuthState } from "./typesAuth";
+import { AuthAction, AuthActionEnum, AuthState, UserObject } from "./typesAuth";
+
+const userObject: UserObject = {
+  username: "",
+  email: "",
+  is_active: false,
+}
 
 const initialState: AuthState = {
-  isAuth: true,
+  isAuth: false,
   isLoading: false,
-  user: {},
+  user: userObject,
   token: "",
   error: "",
 };
@@ -21,8 +27,8 @@ export default function authReducer(
       return { ...state, token: action.payload };
     case AuthActionEnum.AUTH_DATA_ERROR:
       return { ...state, error: action.payload };
-      case AuthActionEnum.GET_USER:
-        return {...state, user: action.payload}
+    case AuthActionEnum.GET_USER:
+      return {...state, user: action.payload}
     default:
       return state;
   }

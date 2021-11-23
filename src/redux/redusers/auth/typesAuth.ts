@@ -1,7 +1,7 @@
 export type AuthState = {
   isAuth: boolean;
   isLoading: boolean;
-  user: object;
+  user: UserObject;
   token: string | null;
   error: string;
 };
@@ -13,7 +13,7 @@ export type UserObject = {
 };
 
 export type User = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -47,7 +47,7 @@ export interface SendAuthDataErrorAction {
 
 export interface GetUserAction {
   type: AuthActionEnum.GET_USER;
-  payload: object;
+  payload: UserObject;
 }
 
 export type AuthAction =

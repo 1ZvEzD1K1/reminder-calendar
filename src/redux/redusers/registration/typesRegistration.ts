@@ -5,7 +5,7 @@ export type RegistrationState = {
 };
 
 export type User ={
-  nickname: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -23,7 +23,7 @@ export interface RegistrationLoadingAction {
 
 export interface SendDataSuccessAction {
   type: RegistrationActionEnum.SEND_DATA_SUCCESS;
-  payload: number;
+  payload: number | null;
 }
 
 export interface SendDataErrorAction {

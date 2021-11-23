@@ -6,23 +6,23 @@ import { useDispatch } from "react-redux";
 import { AuthActionCreators } from "../redux/redusers/auth/authActionCreators";
 
 const LoginForm: FC = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { isLoading } = useTypedSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 
   const submitAuth = () => {
-    dispatch(AuthActionCreators.request(email, password));
+    dispatch(AuthActionCreators.request(username, password));
   };
 
   return (
     <Form onFinish={submitAuth}>
       <Form.Item
-        name="Email"
-        label="Email"
-        rules={[{ type: "email" }, { required: true }]}
+        name="nickname"
+        label="Nickname"
+        rules={[{ required: true }]}
       >
-        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input value={username} onChange={(e) => setUsername(e.target.value)} />
       </Form.Item>
       <Form.Item
         label="Password"
@@ -44,7 +44,7 @@ const LoginForm: FC = () => {
         <Button type="primary" htmlType="submit">
           Login
         </Button>
-        {isLoading && <Spin style={{padding: "5px"}}/>}
+        {isLoading && <Spin style={{ padding: "5px" }} />}
         <Link to="/registration"> Or register now!</Link>
       </Form.Item>
     </Form>
