@@ -4,9 +4,11 @@ import RegistrationForm from "../components/RegistrationForm";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useHistory } from "react-router";
 import { RegistrationActionCreators } from "../redux/redusers/registration/registrationActionCreators";
+import { useDispatch } from "react-redux";
 
 const Registration: FC = () => {
   const { status } = useTypedSelector((state) => state.registrationReducer);
+  const dispatch = useDispatch()
   const history = useHistory();
 
   if (status === null) {
@@ -20,7 +22,7 @@ const Registration: FC = () => {
   } else {
     setTimeout(() => {
       history.push("/login");
-      RegistrationActionCreators.sendData(null)
+      dispatch(RegistrationActionCreators.sendData(null))
     }, 4000);
     return (
       <Layout>

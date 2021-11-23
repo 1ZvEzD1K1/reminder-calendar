@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { AppDispatch } from "../../store";
 import {
   AuthActionEnum,
@@ -11,7 +11,6 @@ import {
   UserObject,
 } from "./typesAuth";
 
-//redux persist
 
 export const AuthActionCreators = {
   sendData: (payload: string): SendAuthDataSuccessAction => ({
@@ -44,7 +43,7 @@ export const AuthActionCreators = {
         };
         
         const res: AxiosResponse = await axios.post("http://26.193.135.145:8000/auth/sign-in", user);
-        dispatch(AuthActionCreators.sendData(res.data));
+        dispatch(AuthActionCreators.sendData(res.data.access_token));
         const me: AxiosResponse = await axios.get("http://26.193.135.145:8000/api/me", {
           headers: {
             Authorization: `Bearer ${res.data.access_token}`,
@@ -54,9 +53,13 @@ export const AuthActionCreators = {
           dispatch(AuthActionCreators.setAuth(true))
         }
         dispatch(AuthActionCreators.getUser(me.data))
-        dispatch(AuthActionCreators.authLoading(false));
-      } catch (error) {
+      } catch (error: any) {
         dispatch(AuthActionCreators.authError(error));
+        const err: AxiosError = error
+        dispatch(AuthActionCreators.authError(err.response?.data.message));
+        console.log(err.response?.data.message)
+      } finally {
+        dispatch(AuthActionCreators.authLoading(false));
       }
     },
 };

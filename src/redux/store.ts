@@ -18,6 +18,7 @@ const store  = createStore(persistedReducer, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type GetState = typeof store.getState;
 
 //@ts-ignore
 export const persistor = persistStore(store)

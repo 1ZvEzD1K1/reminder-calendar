@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { AppDispatch } from "../../store";
 import {
   RegistrationActionEnum,
@@ -36,9 +36,12 @@ export const RegistrationActionCreators = {
           user
         );
         dispatch(RegistrationActionCreators.sendData(req.status));
+      } catch (error: any) {
+        const err: AxiosError = error
+        dispatch(RegistrationActionCreators.regError(err.response?.data.message));
+        console.log(err.response?.data.message)
+      } finally {
         dispatch(RegistrationActionCreators.regLoading(false));
-      } catch (error) {
-        dispatch(RegistrationActionCreators.regError(error));
       }
     },
 };
