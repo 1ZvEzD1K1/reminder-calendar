@@ -32,8 +32,7 @@ export const CalendarActionCreators = {
   getCalendars: () => async (dispatch: AppDispatch, getState: GetState) => {
     try {
       const { token } = getState().authReducer;
-      console.log(token)
-      const res: AxiosResponse = await axios.get(
+      const res: AxiosResponse<{calendars: Calendar[]}> = await axios.get(
         "http://26.193.135.145:8000/api/calendars/",
         {
           headers: {
@@ -41,7 +40,7 @@ export const CalendarActionCreators = {
           },
         }
       );
-      dispatch(CalendarActionCreators.getCalendarsSuccess(res.data))
+      dispatch(CalendarActionCreators.getCalendarsSuccess(res.data.calendars))
     } catch (error: any) {
       const err: AxiosError = error;
       dispatch(

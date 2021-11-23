@@ -14,9 +14,6 @@ const Navbar: FC = () => {
     (state) => state.authReducer
   );
 
-  const state = useTypedSelector(state=>state)
-  console.log(state)
-
   useEffect(() => {
     if (token) {
       dispatch(CalendarActionCreators.getCalendars());
@@ -32,17 +29,18 @@ const Navbar: FC = () => {
       {isAuth ? (
         <>
           <Menu theme="dark" mode="horizontal" selectable={false}>
-            <Menu.Item onClick={exit} key="1">
-              Exit
-            </Menu.Item>
+              <Menu.Item onClick={exit} key="1">
+                Exit
+              </Menu.Item>
 
-            <div
-              style={{
-                color: "white",
-              }}
-            >
-              {user.username}
-            </div>
+              <div
+                style={{
+                  color: "white",
+                  padding: "0px 20px 0px 20px",
+                }}
+              >
+                {user.username}
+              </div>
           </Menu>
         </>
       ) : (
