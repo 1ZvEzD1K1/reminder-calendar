@@ -57,6 +57,7 @@ export const AuthActionCreators = {
         dispatch(AuthActionCreators.authError(error));
         const err: AxiosError = error
         dispatch(AuthActionCreators.authError(err.response?.data.message));
+        // TODO алерт ошибок
         console.log(err.response?.data.message)
       } finally {
         dispatch(AuthActionCreators.authLoading(false));

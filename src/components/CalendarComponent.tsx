@@ -1,17 +1,16 @@
-import { Calendar, Select, Radio, Col, Row, Modal } from "antd";
+import { Calendar, Select, Radio, Col, Row, Modal, Button } from "antd";
 import { CalendarMode } from "antd/lib/calendar/generateCalendar";
 import React, { FC, useState } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import CreateCalendarForm from "./CreateCalendarForm";
 
 const CalendarComponent: FC = () => {
-  const [modalVisible, setModalVisible] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
   const { calendars } = useTypedSelector((state) => state.calendarsReducer);
 
   function onPanelChange(date: moment.Moment, mode: CalendarMode) {
     console.log(date, mode);
   }
-
-  console.log(calendars)
 
   return (
     <>
@@ -36,7 +35,7 @@ const CalendarComponent: FC = () => {
 
           const current = value.clone();
           const localeData = value.localeData();
-          const months = [];
+          const months: any[] = [];
           for (let i = 0; i < 12; i++) {
             current.month(i);
             months.push(localeData.monthsShort(current));
@@ -72,11 +71,20 @@ const CalendarComponent: FC = () => {
                     dropdownMatchSelectWidth={false}
                     placeholder="Select calendar"
                     onChange={(selectedCalendar) => {
-                      console.log( selectedCalendar );
+                      console.log(selectedCalendar);
                     }}
                   >
                     {newCalendars}
                   </Select>
+                </Col>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      setModalVisible(true);
+                    }}
+                  >
+                    Add new calendar?
+                  </Button>
                 </Col>
                 <Col>
                   <Radio.Group
@@ -103,7 +111,7 @@ const CalendarComponent: FC = () => {
                 <Col>
                   <Select
                     dropdownMatchSelectWidth={false}
-                    value={String(month)}
+                    value={months[month]}
                     onChange={(selectedMonth) => {
                       const newValue = value.clone();
                       newValue.month(parseInt(selectedMonth, 10));
@@ -119,7 +127,16 @@ const CalendarComponent: FC = () => {
         }}
         onPanelChange={onPanelChange}
       />
-      <Modal title="Add new calendar"></Modal>
+      <Modal
+        title="Add new calendar"
+        visible={modalVisible}
+        onCancel={() => {
+          setModalVisible(false);
+        }}
+        footer={null}
+      >
+        <CreateCalendarForm setModalVisible={setModalVisible} />
+      </Modal>
     </>
   );
 };

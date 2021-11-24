@@ -38,6 +38,7 @@ export const RegistrationActionCreators = {
         dispatch(RegistrationActionCreators.sendData(req.status));
       } catch (error: any) {
         const err: AxiosError = error
+        // TODO алерт ошибок
         dispatch(RegistrationActionCreators.regError(err.response?.data.message));
         console.log(err.response?.data.message)
       } finally {

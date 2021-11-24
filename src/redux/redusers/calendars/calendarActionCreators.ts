@@ -32,7 +32,7 @@ export const CalendarActionCreators = {
   getCalendars: () => async (dispatch: AppDispatch, getState: GetState) => {
     try {
       const { token } = getState().authReducer;
-      const res: AxiosResponse<{calendars: Calendar[]}> = await axios.get(
+      const res: AxiosResponse<{ calendars: Calendar[] }> = await axios.get(
         "http://26.193.135.145:8000/api/calendars/",
         {
           headers: {
@@ -40,7 +40,7 @@ export const CalendarActionCreators = {
           },
         }
       );
-      dispatch(CalendarActionCreators.getCalendarsSuccess(res.data.calendars))
+      dispatch(CalendarActionCreators.getCalendarsSuccess(res.data.calendars));
     } catch (error: any) {
       const err: AxiosError = error;
       dispatch(
@@ -49,4 +49,33 @@ export const CalendarActionCreators = {
       console.log(err.response?.data.message);
     }
   },
+  createCalendar:
+    (title: string, description: string) =>
+    async (dispatch: AppDispatch, getState: GetState) => {
+      try {
+        const newCalendar: CalendarObject = { title, description };
+        const { token } = getState().authReducer;
+        const res: AxiosResponse = await axios.post(
+          "http://26.193.135.145:8000/api/calendars/",
+          newCalendar,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(res)
+        // TODO получение всех календарей в зависимости от статуса 
+        // TODO лоадер для создания календаря
+      } catch (error: any) {
+        const err: AxiosError = error;
+        // TODO алерт ошибок
+        dispatch(
+          CalendarActionCreators.createNewCalendarError(
+            err.response?.data.message
+          )
+        );
+        console.log(err.response?.data.message);
+      }
+    },
 };

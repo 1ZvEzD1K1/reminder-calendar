@@ -18,7 +18,7 @@ const Navbar: FC = () => {
     if (token) {
       dispatch(CalendarActionCreators.getCalendars());
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   const exit = () => {
     dispatch(AuthActionCreators.sendData(""));
