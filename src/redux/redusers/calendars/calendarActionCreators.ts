@@ -20,10 +20,10 @@ export const CalendarActionCreators = {
     payload,
   }),
   createNewCalendarSuccess: (
-    payload: CalendarObject
+     payload: CalendarObject
   ): CreateNewCalendarSuccessAction => ({
     type: CalendarsActionEnum.CREATE_NEW_CALENDAR_SUCCESS,
-    payload,
+    payload
   }),
   createNewCalendarError: (payload: any): CreateNewCalendarErrorAction => ({
     type: CalendarsActionEnum.CREATE_NEW_CALENDAR_ERROR,
@@ -40,6 +40,7 @@ export const CalendarActionCreators = {
           },
         }
       );
+      console.log('get calendars')
       dispatch(CalendarActionCreators.getCalendarsSuccess(res.data.calendars));
     } catch (error: any) {
       const err: AxiosError = error;
@@ -64,8 +65,11 @@ export const CalendarActionCreators = {
             },
           }
         );
-        console.log(res)
-        // TODO получение всех календарей в зависимости от статуса 
+        if (res.status === 201) {
+          //@ts-ignore
+          dispatch(CalendarActionCreators.getCalendars())
+          console.log('reload calendars')
+        }
         // TODO лоадер для создания календаря
       } catch (error: any) {
         const err: AxiosError = error;

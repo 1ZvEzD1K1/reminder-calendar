@@ -4,19 +4,23 @@ import { useDispatch } from "react-redux";
 import { CalendarActionCreators } from "../redux/redusers/calendars/calendarActionCreators";
 
 type CreateCalendarFormProps = {
-    setModalVisible: Dispatch<SetStateAction<boolean>>
-}
+  setModalVisible: Dispatch<SetStateAction<boolean>>;
+};
 
-const CreateCalendarForm: FC<CreateCalendarFormProps> = ({setModalVisible}) => {
+// TODO uuid
+
+const CreateCalendarForm: FC<CreateCalendarFormProps> = ({
+  setModalVisible,
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const submitCreateCalendar = () => {
-    dispatch(CalendarActionCreators.createCalendar(title, description))
+    dispatch(CalendarActionCreators.createCalendar(title, description));
     setTitle("");
     setDescription("");
-    setModalVisible(false)
+    setModalVisible(false);
   };
 
   return (

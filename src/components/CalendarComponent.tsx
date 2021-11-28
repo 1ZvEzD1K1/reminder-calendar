@@ -21,17 +21,19 @@ const CalendarComponent: FC = () => {
           const monthOptions = [];
           const newCalendars: any[] = [];
 
-          calendars.forEach((calendar) => {
-            newCalendars.push(
-              <Select.Option
-                value={calendar.id}
-                className="month-item"
-                key={`${calendar.id}`}
-              >
-                {calendar.title}
-              </Select.Option>
-            );
-          });
+          if (calendars) {
+            calendars.forEach((calendar) => {
+              newCalendars.push(
+                <Select.Option
+                  value={calendar.id}
+                  className="month-item"
+                  key={`${calendar.id}`}
+                >
+                  {calendar.title}
+                </Select.Option>
+              );
+            });
+          }
 
           const current = value.clone();
           const localeData = value.localeData();
