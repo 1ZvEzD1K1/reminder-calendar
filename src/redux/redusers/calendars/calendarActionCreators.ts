@@ -5,7 +5,7 @@ import {
   CalendarObject,
   CalendarsActionEnum,
   CreateNewCalendarErrorAction,
-  CreateNewCalendarSuccessAction,
+  CalendarLoading,
   GetCalendarsSuccessAction,
   GetCalndarsErrorAction,
 } from "./typesCalendars";
@@ -19,11 +19,9 @@ export const CalendarActionCreators = {
     type: CalendarsActionEnum.GET_CALENDARS_ERROR,
     payload,
   }),
-  createNewCalendarSuccess: (
-     payload: CalendarObject
-  ): CreateNewCalendarSuccessAction => ({
-    type: CalendarsActionEnum.CREATE_NEW_CALENDAR_SUCCESS,
-    payload
+  calendarLoading: (payload: boolean): CalendarLoading => ({
+    type: CalendarsActionEnum.CALENDAR_LOADING,
+    payload,
   }),
   createNewCalendarError: (payload: any): CreateNewCalendarErrorAction => ({
     type: CalendarsActionEnum.CREATE_NEW_CALENDAR_ERROR,
@@ -31,6 +29,7 @@ export const CalendarActionCreators = {
   }),
   getCalendars: () => async (dispatch: AppDispatch, getState: GetState) => {
     try {
+      dispatch(CalendarActionCreators.calendarLoading(true));
       const { token } = getState().authReducer;
       const res: AxiosResponse<{ calendars: Calendar[] }> = await axios.get(
         "http://26.193.135.145:8000/api/calendars/",
@@ -40,20 +39,23 @@ export const CalendarActionCreators = {
           },
         }
       );
-      console.log('get calendars')
       dispatch(CalendarActionCreators.getCalendarsSuccess(res.data.calendars));
+      dispatch(CalendarActionCreators.calendarLoading(false));
     } catch (error: any) {
       const err: AxiosError = error;
       dispatch(
         CalendarActionCreators.getCalendarsError(err.response?.data.message)
       );
       console.log(err.response?.data.message);
+    } finally {
+      dispatch(CalendarActionCreators.calendarLoading(false));
     }
   },
   createCalendar:
     (title: string, description: string) =>
     async (dispatch: AppDispatch, getState: GetState) => {
       try {
+        dispatch(CalendarActionCreators.calendarLoading(true));
         const newCalendar: CalendarObject = { title, description };
         const { token } = getState().authReducer;
         const res: AxiosResponse = await axios.post(
@@ -67,10 +69,10 @@ export const CalendarActionCreators = {
         );
         if (res.status === 201) {
           //@ts-ignore
-          dispatch(CalendarActionCreators.getCalendars())
-          console.log('reload calendars')
+          dispatch(CalendarActionCreators.getCalendars());
+          console.log("reload calendars");
         }
-        // TODO лоадер для создания календаря
+        dispatch(CalendarActionCreators.calendarLoading(false));
       } catch (error: any) {
         const err: AxiosError = error;
         // TODO алерт ошибок
@@ -80,6 +82,8 @@ export const CalendarActionCreators = {
           )
         );
         console.log(err.response?.data.message);
+      } finally {
+        dispatch(CalendarActionCreators.calendarLoading(false));
       }
     },
 };

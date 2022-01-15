@@ -1,6 +1,7 @@
 export type CalendarsState = {
   calendars: Calendar[];
   error: string;
+  isLoading: boolean;
 };
 
 export type Calendar = {
@@ -18,7 +19,7 @@ export type CalendarObject = {
 export enum CalendarsActionEnum {
   GET_CALENDARS_SUCCESS = "GET_CALENDARS_SUCCESS",
   GET_CALENDARS_ERROR = "GET_CALENDARS_ERROR",
-  CREATE_NEW_CALENDAR_SUCCESS = "CREATE_NEW_CALENDAR_SUCCESS",
+  CALENDAR_LOADING = "CALENDAR_LOADING",
   CREATE_NEW_CALENDAR_ERROR = "CREATE_NEW_CALENDAR_ERROR",
 }
 
@@ -32,9 +33,9 @@ export interface GetCalndarsErrorAction {
   payload: string;
 }
 
-export interface CreateNewCalendarSuccessAction {
-  type: CalendarsActionEnum.CREATE_NEW_CALENDAR_SUCCESS;
-  payload: CalendarObject;
+export interface CalendarLoading{
+  type: CalendarsActionEnum.CALENDAR_LOADING;
+  payload: boolean;
 }
 
 export interface CreateNewCalendarErrorAction {
@@ -45,5 +46,5 @@ export interface CreateNewCalendarErrorAction {
 export type CalendarsAction =
   | GetCalendarsSuccessAction
   | GetCalndarsErrorAction
-  | CreateNewCalendarSuccessAction
+  | CalendarLoading
   | CreateNewCalendarErrorAction;

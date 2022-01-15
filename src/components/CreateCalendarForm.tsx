@@ -7,8 +7,6 @@ type CreateCalendarFormProps = {
   setModalVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-// TODO uuid
-
 const CreateCalendarForm: FC<CreateCalendarFormProps> = ({
   setModalVisible,
 }) => {
