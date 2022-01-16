@@ -68,6 +68,7 @@ const CalendarComponent: FC = () => {
           return (
             <div style={{ padding: 8 }}>
               <Row gutter={8} justify="end">
+
                 <Col>
                   <Select
                     dropdownMatchSelectWidth={false}
@@ -79,6 +80,7 @@ const CalendarComponent: FC = () => {
                     {newCalendars}
                   </Select>
                 </Col>
+
                 <Col>
                   <Button
                     onClick={() => {
@@ -88,6 +90,7 @@ const CalendarComponent: FC = () => {
                     Add new calendar?
                   </Button>
                 </Col>
+
                 <Col>
                   <Radio.Group
                     onChange={(e) => onTypeChange(e.target.value)}
@@ -97,6 +100,7 @@ const CalendarComponent: FC = () => {
                     <Radio.Button value="year">Year</Radio.Button>
                   </Radio.Group>
                 </Col>
+
                 <Col>
                   <Select
                     dropdownMatchSelectWidth={false}
@@ -110,6 +114,7 @@ const CalendarComponent: FC = () => {
                     {options}
                   </Select>
                 </Col>
+
                 <Col>
                   <Select
                     dropdownMatchSelectWidth={false}
@@ -123,6 +128,7 @@ const CalendarComponent: FC = () => {
                     {monthOptions}
                   </Select>
                 </Col>
+                
               </Row>
             </div>
           );

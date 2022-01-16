@@ -54,7 +54,6 @@ export const AuthActionCreators = {
         }
         dispatch(AuthActionCreators.getUser(me.data))
       } catch (error: any) {
-        dispatch(AuthActionCreators.authError(error));
         const err: AxiosError = error
         dispatch(AuthActionCreators.authError(err.response?.data.message));
         // TODO алерт ошибок
