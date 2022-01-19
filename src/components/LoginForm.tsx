@@ -17,11 +17,7 @@ const LoginForm: FC = () => {
 
   return (
     <Form onFinish={submitAuth}>
-      <Form.Item
-        name="nickname"
-        label="Nickname"
-        rules={[{ required: true }]}
-      >
+      <Form.Item name="nickname" label="Nickname" rules={[{ required: true }]}>
         <Input value={username} onChange={(e) => setUsername(e.target.value)} />
       </Form.Item>
       <Form.Item
