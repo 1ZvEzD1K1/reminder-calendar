@@ -20,6 +20,7 @@ const CreateCalendarForm: FC<CreateCalendarFormProps> = ({
     setDescription("");
     setModalVisible(false);
     console.log('test');
+    console.log('test2');
   };
 
   return (
